@@ -8,6 +8,23 @@
 }
 
 .dot-tooltip {
-  width: 0;
+  padding: 10px;
+  background: #222;
+  color: #bbb;
+  font-size: 12px;
+  line-height: 1.4;
   position: absolute;
+  z-index: 99999;
+  text-align: center;
+  border-radius: 2px;
+  box-shadow: 2px 2px 2px rgba(0,0,0,0.2);
+  box-sizing: border-box;
+}
+
+.col-label {
+    font-size: 9px;
+}
+
+.input-font {
+    font-size: 10px
 }

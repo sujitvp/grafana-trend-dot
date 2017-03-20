@@ -14,7 +14,8 @@ export class Builder {
 
     return { name: series.target,
       oldestValue: this._oldestValueFor(points),
-      latestValue: this._latestValueFor(points) }
+      latestValue: this._latestValueFor(points)
+    }
   }
 
   _cleanup (series) {

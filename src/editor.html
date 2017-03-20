@@ -1,42 +1,66 @@
-<div class="col-md-6">
+<div class="col-md-3">
   <div class="gf-form">
-    <label class="gf-form-label width-9">Radius</label>
-    <input type="text" class="input-small gf-form-input width-9" ng-model="ctrl.panel.radius" ng-change="ctrl.render()" ng-model-onblur=true/>
+    <label class="gf-form-label width-10">Radius</label>
+    <input type="text" class="input-small gf-form-input width-10" ng-model="ctrl.panel.radius" ng-change="ctrl.render()" ng-model-onblur=true/>
   </div>
 
   <div class="gf-form">
-    <label class="gf-form-label width-9">Decimals</label>
-      <input type="number" class="input-small gf-form-input width-9" ng-model="ctrl.panel.decimals" ng-change="ctrl.render()" >
+    <label class="gf-form-label width-10">Decimals</label>
+      <input type="number" class="input-small gf-form-input width-10" ng-model="ctrl.panel.decimals" ng-change="ctrl.render()" >
   </div>
 
   <div class="gf-form">
-    <label class="gf-form-label width-9">Units</label>
+    <label class="gf-form-label width-10">Units</label>
       <ul class="tight-form-list">
-      <li class="dropdown width-9"
+      <li class="dropdown width-10"
                 ng-model="ctrl.panel.format"
                 dropdown-typeahead="ctrl.unitFormats"
                 dropdown-typeahead-on-select="ctrl.onEditorSetFormat($subItem)">
       </li>
     </ul>
   </div>
+
+  <div class="gf-form">
+    <label class="gf-form-label width-10">Tooltip Value</label>
+    <select class="dropdown width-10" ng-model="ctrl.panel.tooltipValue" ng-change="ctrl.render()" >
+        <option value="value">Value</option>
+        <option value="text">Label</option>
+        <option value="none">None</option>
+    </select>
+  </div>
+  <div class="gf-form">
+    <label class="gf-form-label width-10">Color By</label>
+    <select class="dropdown width-10" ng-model="ctrl.panel.colorBy" ng-change="ctrl.render()" >
+        <option value="curr">Current Value</option>
+        <option value="trnd">Value Trend</option>
+    </select>
+  </div>
 </div>
 
-<div class="col-md-6">
+<div class="col-md-5">
   <div class="editor-row">
     <div class="section gf-form-group">
       <div class="gf-form">
-        <label class="gf-form-label width-9">Default Color</label>
+        <label class="gf-form-label width-10">Default Color</label>
         <label class="gf-form-label">
           <spectrum-picker ng-model="ctrl.panel.defaultColor" ng-change="ctrl.render()" ng-model-onblur="true"/>
         </label>
       </div>
+      <div class="gf-form">
+        <label class="col-label width-11"></label>
+        <label class="col-label width-10">Limit Value</label>
+        <label class="col-label width-3"></label>
+        <label class="col-label width-3"></label>
+        <label class="col-label width-10">Threshold State Label</label>
+      </div>
       <div class="gf-form" ng-repeat="threshold in ctrl.panel.thresholds">
-        <label class="gf-form-label width-9">Threshold {{$index + 1}}</label>
-        <input type="text" class="input-small gf-form-input width-9" ng-model="threshold.value" ng-change="ctrl.render()" ng-model-onblur=true />
+        <label class="gf-form-label width-10">Threshold {{$index + 1}}</label>
+        <input type="text" class="input-small gf-form-input width-7" ng-model="threshold.value" ng-change="ctrl.render()" ng-model-onblur=true />
         <label class="gf-form-label width-3">%</label>
         <label class="gf-form-label">
           <spectrum-picker ng-model="threshold.color" ng-change="ctrl.render()" ng-model-onblur="true"/>
         </label>
+        <input type="text" class="input-small gf-form-input width-10" ng-model="threshold.label" ng-change="ctrl.render()" ng-model-onblur=true />
         <label class="gf-form-label">
           <a class="pointer" ng-click="ctrl.onEditorRemoveThreshold($index)">
             <i class="fa fa-trash"/>
@@ -44,11 +68,31 @@
         </label>
       </div>
       <div class="gf-form">
-        <label class="gf-form-label">
+        <label class="gf-form-label width-10">
           <a class="pointer" ng-click="ctrl.onEditorAddThreshold()">
             Add threshold
           </a>
         </label>
+      </div>
+    </div>
+  </div>
+</div>
+
+<div class="col-md-4">
+  <div class="editor-row">
+    <div class="section gf-form-group">
+        <div class="gf-form">
+          <label class="col-label width-10">&nbsp;</label>
+          <label class="col-label width-10">&nbsp;</label>
+          <label class="col-label width-15">&nbsp;</label>
+        </div>
+      <div class="gf-form">
+        <label class="gf-form-label width-8">Link URL
+          <info-popover mode="right-normal">
+            Provide a URL to enable links on each DOT. URLs may include template variables and the special variable $$__dotname, which will be expanded to the name of the DOT (which is the metric label) on which the click occurs.
+          </info-popover>
+        </label>
+        <input type="text" class="input-small gf-form-input width-31 input-font" ng-model="ctrl.panel.linkURL" ng-blur="ctrl.render()" >
       </div>
     </div>
   </div>

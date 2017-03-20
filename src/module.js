@@ -10,12 +10,17 @@ const panelDefaults = {
   defaultColor: 'rgb(117, 117, 117)',
   thresholds: [],
   format: 'none',
-  decimals: 2
+  decimals: 2,
+  display: 'value',
+  defaultText: ''
 }
 
 export class TrendDotCtrl extends MetricsPanelCtrl {
-  constructor ($scope, $injector) {
+  constructor ($scope, $injector, $log, $filter, annotationsSrv) {
     super($scope, $injector)
+
+    this.filter = $filter
+
     _.defaults(this.panel, panelDefaults)
 
     this.events.on('init-edit-mode', this.onInitEditMode.bind(this))
@@ -60,9 +65,26 @@ export class TrendDotCtrl extends MetricsPanelCtrl {
     return { 'background': dot.color, 'width': this.panel.radius, 'height': this.panel.radius }
   }
 
-  format (value, format = this.panel.format) {
+  linkFor (dot) {
+    return this.filter('interpolateTemplateVars')(this.panel.linkURL, this.$scope).replace('$$__dotname', dot.name)
+  }
+
+  linkTest () {
+    return this.panel.linkURL === ''
+  }
+
+  format (dot, format = this.panel.format) {
     var formatFunc = kbn.valueFormats[format]
-    return formatFunc(value, this.panel.decimals, null)
+    var retval
+    if (this.panel.tooltipValue === 'value') {
+      retval = formatFunc(dot.displayValue, this.panel.decimals, null)
+    } else {
+      retval = dot.displayValue
+    }
+    if (this.panel.colorBy === 'trnd') {
+      retval = retval + ' (' + formatFunc(dot.percentChange, this.panel.decimals, null) + ')'
+    }
+    return retval
   }
 }
 
